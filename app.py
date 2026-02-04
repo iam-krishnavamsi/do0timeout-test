@@ -10,4 +10,4 @@ def home():
 @app.route("/timeout-test")
 def timeout_test():
     time.sleep(120)  # 2 minutes
-    return "Done after 120 seconds"
+    return "Done after 500 seconds"

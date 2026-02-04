@@ -1,13 +1,9 @@
-from flask import Flask
-import time
+from fastapi import FastAPI
+import asyncio
 
-app = Flask(__name__)
+app = FastAPI()
 
-@app.route("/")
-def home():
-    return "OK - App is running"
-
-@app.route("/timeout-test")
-def timeout_test():
-    time.sleep(120)  # 2 minutes
-    return "Done after 1500 seconds"
+@app.get("/timeout-test")
+async def timeout_test():
+    await asyncio.sleep(150)  # start with 150, then try 300
+    return {"status": "done"}

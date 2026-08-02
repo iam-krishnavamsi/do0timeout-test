@@ -1,9 +1,15 @@
 from fastapi import FastAPI
-import asyncio
+from fastapi.responses import JSONResponse
 
 app = FastAPI()
 
-@app.get("/timeout-test")
-async def timeout_test():
-    await asyncio.sleep(800)  # start with 150, then try 300
-    return {"status": "done"}
+@app.post("/test503")
+async def test503():
+    return JSONResponse(
+        status_code=503,
+        content={
+            "code": "unavailable",
+            "message": "Service Unavailable"
+        },
+        headers={"Retry-After": "5"}
+    )
